@@ -60,10 +60,10 @@
   "bugs": {
     "url": "https://github.com/gruijter/com.gruijter.anpr/issues"
   },
-  "homeyCommunityTopicId": 0,
+  "homeyCommunityTopicId": 29338,
   "source": "https://github.com/gruijter/com.gruijter.anpr",
   "homepage": "https://github.com/gruijter/com.gruijter.anpr/blob/master/README.md",
-  "support": "https://community.athom.com/t/0",
+  "support": "https://community.athom.com/t/29338",
   "flow": {
     "triggers": [
       {
