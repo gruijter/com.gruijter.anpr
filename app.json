@@ -1,0 +1,165 @@
+{
+  "id": "com.gruijter.anpr",
+  "version": "1.0.0",
+  "compatibility": ">=3.0.0",
+  "sdk": 2,
+  "name": {
+    "en": "Licence Plate Recognition"
+  },
+  "description": {
+    "en": "Licence plate recognition for Homey"
+  },
+  "category": [
+    "localization",
+    "security",
+    "video"
+  ],
+  "tags": {
+    "en": [
+      "LPR",
+      "ANPR",
+      "licence",
+      "plate",
+      "recognition",
+      "video",
+      "analytics",
+      "biometrics"
+    ]
+  },
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.jpg",
+    "small": "/assets/images/small.jpg"
+  },
+  "author": {
+    "name": "Robin Gruijter",
+    "email": "gruijter@hotmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Robin de Gruijter",
+        "email": "gruijter@hotmail.com"
+      }
+    ],
+    "translators": [
+      {
+        "name": "🇬🇧 Robin"
+      }
+    ]
+  },
+  "copyright": "Robin de Gruijter (gruijter@hotmail.com)",
+  "license": " GPL-3.0-or-later",
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "gruijter"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/gruijter/com.gruijter.anpr/issues"
+  },
+  "homeyCommunityTopicId": 0,
+  "source": "https://github.com/gruijter/com.gruijter.anpr",
+  "homepage": "https://github.com/gruijter/com.gruijter.anpr/blob/master/README.md",
+  "support": "https://community.athom.com/t/0",
+  "flow": {
+    "triggers": [
+      {
+        "id": "plate_detected",
+        "title": {
+          "en": "Plate detected"
+        },
+        "tokens": [
+          {
+            "name": "origin",
+            "type": "string",
+            "title": {
+              "en": "origin"
+            },
+            "example": "Ring camera"
+          },
+          {
+            "name": "plate",
+            "type": "string",
+            "title": {
+              "en": "Licence plate"
+            },
+            "example": "nsn458"
+          },
+          {
+            "name": "confidence",
+            "type": "number",
+            "title": {
+              "en": "confidence"
+            },
+            "example": 90.4
+          },
+          {
+            "name": "quality",
+            "type": "number",
+            "title": {
+              "en": "quality"
+            },
+            "example": 72.8
+          },
+          {
+            "name": "region",
+            "type": "string",
+            "title": {
+              "en": "region"
+            },
+            "example": {
+              "en": "de"
+            }
+          },
+          {
+            "name": "region_conf",
+            "type": "number",
+            "title": {
+              "en": "region confidence"
+            },
+            "example": 88.2
+          },
+          {
+            "name": "vehicle",
+            "type": "string",
+            "title": {
+              "en": "vehicle"
+            },
+            "example": {
+              "en": "Car"
+            }
+          },
+          {
+            "name": "vehicle_conf",
+            "type": "number",
+            "title": {
+              "en": "region confidence"
+            },
+            "example": 35.8
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "id": "search_plates",
+        "title": {
+          "en": "Search License Plates"
+        },
+        "droptoken": "image",
+        "args": [
+          {
+            "type": "text",
+            "name": "origin",
+            "placeholder": {
+              "en": "Origin Label (e.g. Cam1)"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
