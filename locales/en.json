@@ -20,7 +20,7 @@
 			"title": "Settings",
 			"instructionsLegendKey": "API Key",
 			"instructionsKey": "Enter the API Key that you obtained from the platerecognizer website. Each Homey must use a different key!<br>A higher threshold will reduce false plate recognition.",
-			"api_key": "API Key",
+			"api_key": "API Key &#128065;",
 			"saveSettingsKey": "Save API Key",
 			"instructionsLegendMatch": "Plate Recognition",
 			"instructionsMatch": "A higher confidence threshold will reduce incorrect plate recognitions.",

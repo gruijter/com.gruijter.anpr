@@ -66,6 +66,8 @@ function checkKeys() {
 }
 
 function showInfo3() {
+	const x = document.getElementById('apiKey');
+	x.type = 'password';
 	Homey.get('settingsKey', (err, set) => {
 		if (err || !set) return;
 		$('#apiKey').val(set.apiKey);
@@ -74,6 +76,15 @@ function showInfo3() {
 	// 	if (err || !set) return;
 	// 	$('#threshold').val(set.threshold);
 	// });
+}
+
+function togglePasswordView() {
+	const x = document.getElementById('apiKey');
+	if (x.type === 'password') {
+		x.type = 'text';
+	} else {
+		x.type = 'password';
+	}
 }
 
 function saveSettingsKey() {

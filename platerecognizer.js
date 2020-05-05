@@ -54,16 +54,16 @@ class ANPR {
 		const config = {
 			rules: {					// Describing our rules by rule name
 				common: {				// Common rule. Will be used if you won't provide rule argument
-					rate: 8,			// Allow to send 8 messages
+					rate: 3,			// Allow to send 8 messages
 					limit: 1,			// per 1 second
 					priority: 1,	// Rule priority. The lower priority is, the higher chance that this rule will execute faster
 				},
 			},
 			overall: {				// Overall queue rates and limits
-				rate: 8,
+				rate: 3,
 				limit: 1,
 			},
-			retryTime: 3,		// Default retry time (seconds). Can be configured in retry fn
+			retryTime: 2,		// Default retry time (seconds). Can be configured in retry fn
 			ignoreOverallOverheat: true,	// Should we ignore overheat of queue itself
 		};
 		this.queue = new Queue(config);
@@ -74,7 +74,7 @@ class ANPR {
 		const requestHandler = (retry) => this._makeRequest(path, msg)
 			.then((response) => response)
 			.catch((error) => {
-				if (error.message && error.message.includes('429')) {
+				if (error.message && (error.message.includes('throttled') || error.message.includes('429'))) {
 					return retry();
 				}
 				throw error;

@@ -1,5 +1,8 @@
 {
   "1.0.0": {
-    "en": "First release"
+    "en": "First release."
+  },
+  "1.0.1": {
+    "en": "Added toggle API Secret view in app settings. Fix API throttle issue. Fix threshold setting."
   }
 }

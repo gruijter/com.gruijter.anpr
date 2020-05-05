@@ -38,7 +38,7 @@ class ANPRApp extends Homey.App {
 		try {
 			if (!this.logger) this.logger = new Logger('log', 200);
 			this.keySettings = Homey.ManagerSettings.get('settingsKey') || {}; // apiKey
-			this.matchSettings = Homey.ManagerSettings.get('settingsMatch') || {}; // threshold
+			this.matchSettings = Homey.ManagerSettings.get('settingsMatch') || { threshold: 85 }; // threshold
 			const { apiKey } = this.keySettings;
 			Homey.ManagerSettings
 				.on('set', (key) => {
@@ -114,8 +114,9 @@ class ANPRApp extends Homey.App {
 				timestamp:	new Date().toISOString(),	// ISO 8601 timestamp. For example, 2019-08-19T13:11:25. The timestamp has to be in UTC.
 			};
 			const { results, camera_id: cameraID } = await this.ANPR.detectPlates(options);
+			const threshold = (Homey.ManagerSettings.get('settingsMatch').threshold || 85) / 100;
 			const searchResult = results
-				.filter((plate) => plate.score > (this.matchSettings.threshold || 65) / 100)
+				.filter((plate) => plate.score > threshold)
 				.map((plate) => {
 					const tokens = {
 						origin: cameraID, // || origin || 'undefined',
@@ -140,10 +141,12 @@ class ANPRApp extends Homey.App {
 
 
 	// register flow cards
-	registerFlowCards() {
+	async registerFlowCards() {
 		// unregister cards first
 		if (!this.flows) this.flows = {};
-		Object.keys(this.flows).forEach((flow) => Homey.ManagerFlow.unregisterCard(this.flows[flow]));
+		const ready = Object.keys(this.flows).map((flow) => Promise.resolve(Homey.ManagerFlow.unregisterCard(this.flows[flow])));
+		await Promise.resolve(ready);
+		// Object.keys(this.flows).forEach((flow) => Homey.ManagerFlow.unregisterCard(this.flows[flow]));
 
 		// add trigggers
 		this.flows.plateDetectedTrigger = new Homey.FlowCardTrigger('plate_detected')

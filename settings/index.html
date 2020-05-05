@@ -66,14 +66,10 @@
 							<p data-i18n="settings.tab3.instructionsKey" class="instructions">Instructions</p>
 						</fieldset>
 
-						<label class="settings-item-description" data-i18n="settings.tab3.api_key">API KEY</label>
+						<label class="settings-item-description" onclick="togglePasswordView()" data-i18n="settings.tab3.api_key">API KEY</label>
 						<div class="settings-itemgroup">
 							<input id="apiKey" type="password" value="">
 						</div>
-						<!-- <label class="settings-item-description" data-i18n="settings.tab3.api_secret">API SECRET</label>
-						<div class="settings-itemgroup">
-							<input id="apiSecret" type="password" value="">
-						</div> -->
 
 						<br>
 						<!-- <label class="settings-item-description" data-i18n="settings.tab3.saveKey">SAVE KEY</label> -->
@@ -88,7 +84,7 @@
 
 						<label class="settings-item-description" data-i18n="settings.tab3.threshold">MATCH THRESHOLD</label>
 						<div class="settings-itemgroup">
-							<input id="threshold" type="number" min="1" max="100" value=65>
+							<input id="threshold" type="number" min="1" max="100" value=85>
 						</div>
 <!-- 
 						<div class="slidecontainer">
