@@ -27,7 +27,7 @@ const Queue = require('smart-request-balancer');
 
 const APIHost = 'api.platerecognizer.com';
 const detectLPlateEP = '/v1/plate-reader/';
-// const statisticsEP = '/v1/statistics/';
+const statisticsEP = '/v1/statistics/';
 
 const parse = (data) => {
 	try {
@@ -45,22 +45,39 @@ class ANPR {
 		this.host = options.host || APIHost;
 		this.port = options.port || 443;
 		this.timeout = options.timeout || 10000;
-		this.key = opts.key;
+		this.apiKeys = options.apiKeys || [];
+		this.apiKeyIndex = 0;
 		this.initQueue();
 	}
 
 	// queue stuff
 	initQueue() {
 		const config = {
-			rules: {					// Describing our rules by rule name
-				common: {				// Common rule. Will be used if you won't provide rule argument
-					rate: 3,			// Allow to send 8 messages
-					limit: 1,			// per 1 second
+			rules: {				// Describing our rules by rule name
+				common: {			// Common rule. Will be used if you won't provide rule argument
+					rate: 10,		// Allow to send 10 messages
+					limit: 1,		// per 1 second
 					priority: 1,	// Rule priority. The lower priority is, the higher chance that this rule will execute faster
+				},
+				0: {				// key index 0
+					rate: 3,		// Allow to send 1 messages
+					limit: 1,		// per 1 second
+				},
+				1: {				// key index 1
+					rate: 3,		// Allow to send 1 messages
+					limit: 1,		// per 1 second
+				},
+				2: {				// key index 2
+					rate: 3,		// Allow to send 1 messages
+					limit: 1,		// per 1 second
+				},
+				3: {				// key index 3
+					rate: 3,		// Allow to send 1 messages
+					limit: 1,		// per 1 second
 				},
 			},
 			overall: {				// Overall queue rates and limits
-				rate: 3,
+				rate: 10,
 				limit: 1,
 			},
 			retryTime: 2,		// Default retry time (seconds). Can be configured in retry fn
@@ -69,12 +86,12 @@ class ANPR {
 		this.queue = new Queue(config);
 	}
 
-	queueMessage(path, msg, rule) {
+	queueMessage(path, msg, apiKey, rule) {
 		const key = 'homey';
-		const requestHandler = (retry) => this._makeRequest(path, msg)
+		const requestHandler = (retry) => this._makeRequest(path, msg, apiKey)
 			.then((response) => response)
 			.catch((error) => {
-				if (error.message && (error.message.includes('throttled') || error.message.includes('429'))) {
+				if (error.message && (error.message.includes('throttled') || error.message.includes('429'))) {	// or 500?
 					return retry();
 				}
 				throw error;
@@ -85,15 +102,36 @@ class ANPR {
 	// returns an array of detected plates with attributes
 	async detectPlates(opts) {
 		try {
+			const randomIndex = Math.floor(Math.random() * this.apiKeys.length);
+			const apiKey = this.apiKeys[randomIndex];
+
 			const postData = {
 				// upload:	(required) The file to be uploaded. The parameter can either be the file bytes (using Content-Type multipart/form-data) OR a base64 encoded image.
-				// regions:	Match the license plate pattern of a specific region or regions. This parameter can be used multiple times to specify more than one region.
+				// regions: ['nl', 'be', 'de'], // Match the license plate pattern of a specific region or regions. This parameter can be used multiple times to specify more than one region.
 				// camera_id:	Unique camera identifier.
 				timestamp:	new Date().toISOString(),	// ISO 8601 timestamp. For example, 2019-08-19T13:11:25. The timestamp has to be in UTC.
 			};
 			Object.assign(postData, opts);
-			const result = await this.queueMessage(detectLPlateEP, postData);
+			const result = await this.queueMessage(detectLPlateEP, postData, apiKey, randomIndex);
 			return Promise.resolve(result);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	}
+
+	// returns the statistics of the used API key
+	getStatistics(apiKey) {
+		try {
+			return this.queueMessage(statisticsEP, '', apiKey);
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	}
+
+	getAllStatistics() {
+		try {
+			const stats = this.apiKeys.map((apiKey) => this.getStatistics(apiKey).catch(() => null));
+			return Promise.all(stats);
 		} catch (error) {
 			return Promise.reject(error);
 		}
@@ -101,11 +139,11 @@ class ANPR {
 
 	// HTTPS request
 
-	async _makeRequest(path, msg) {
+	async _makeRequest(path, msg, apiKey) {
 		try {
 			const message = qs.stringify(Object.assign(msg));
 			const headers = {
-				Authorization: `Token ${this.key}`,
+				Authorization: `Token ${apiKey}`,
 				// 'cache-control': 'no-cache',
 				// 'content-type': 'multipart/form-data',	// for stream
 				'content-type': 'application/x-www-form-urlencoded',	// for base64 encoded file
@@ -119,13 +157,14 @@ class ANPR {
 				headers,
 				method: 'POST',
 			};
+			if (path === statisticsEP) options.method = 'GET';
 			const result = await this._makeHttpsRequest(options, message);
 			const body = parse(result.body);
 			// console.log(util.inspect(body, false, 10, true));
-			if (!Object.keys(body).length) throw Error(result.statusCode);
-			if (body.detail) throw Error(body.detail);
-			if (body.non_field_errors) throw Error(body.non_field_errors[0]);
-			if (body.upload) throw Error(body.upload[0]);
+			if (!Object.keys(body).length) throw Error(result.statusCode, result.body);
+			// if (body.detail) throw Error(body.detail);
+			// if (body.non_field_errors) throw Error(body.non_field_errors[0]);
+			// if (body.upload) throw Error(body.upload[0]);
 			if (result.statusCode !== 200 && result.statusCode !== 201) throw Error(JSON.stringify(body));
 			// all is good
 			return Promise.resolve(body);
@@ -166,6 +205,15 @@ class ANPR {
 module.exports = ANPR;
 
 /*
+
+{
+  "usage": {
+    "month": 1,
+    "calls": 128,
+    "year": 2019
+  },
+  "total_calls": 2500
+}
 
 {
   processing_time: 67.586,

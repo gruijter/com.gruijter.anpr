@@ -23,6 +23,21 @@ module.exports = [
 			callback(null, result);
 		},
 	},
+	{
+		description: 'check API Key',
+		method: 'POST',
+		path: '/checkkey/',
+		requires_authorization: true,
+		role: 'owner',
+		fn: function fn(args, callback) {
+			Homey.app.checkKey(args.body.key)
+				.then((result) => callback(null, result))
+				.catch((error) => {
+					callback(error, null);
+				});
+		},
+	},
+
 	// {
 	// 	description: 'Detect Plate',
 	// 	method: 'POST',

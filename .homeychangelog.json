@@ -4,5 +4,8 @@
   },
   "1.0.1": {
     "en": "Added toggle API Secret view in app settings. Fix API throttle issue. Fix threshold setting."
+  },
+  "1.1.1": {
+    "en": "Added multiple API key support. Added key validity check on save. Added API statistics. Added manual region selection. Bug fixes."
   }
 }
