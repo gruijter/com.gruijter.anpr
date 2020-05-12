@@ -85,7 +85,7 @@ class ANPRApp extends Homey.App {
 					this.logger.saveLogs();
 				})
 				.on('memwarn', () => {
-					this.log('memwarn!');
+					this.error('memwarn!');
 				});
 
 			if (!apiKeys || !apiKeys[0]) {
@@ -96,7 +96,10 @@ class ANPRApp extends Homey.App {
 			// register flows and tokens, and start polling stuff
 			this.registerFlowCards();
 			this.registerFlowTokens();
-			this.startPolling();
+			// this.startPolling();
+
+			// get stats
+			this.updateStats();
 
 			this.log('ANPR is running...');
 
@@ -131,6 +134,8 @@ class ANPRApp extends Homey.App {
 	// update usage statistics tokens
 	async updateStats() {
 		try {
+			if (this.busyStat) return;
+			this.busyStat = true;
 			const stats = await this.ANPR.getAllStatistics();
 			stats.forEach((stat, index) => {
 				const token = `key${index + 1}UsageToken`;
@@ -139,9 +144,9 @@ class ANPRApp extends Homey.App {
 					this.tokens[token].setValue(keyUsage);
 				}
 			});
-			return stats;
+			this.busyStat = false;
 		} catch (error) {
-			return this.error(error);
+			this.error(error);
 		}
 	}
 
@@ -176,7 +181,7 @@ class ANPRApp extends Homey.App {
 				});
 			await Promise.all(searchResult);
 			if (searchResult.length === 0) this.log(`no plates found in image ${origin}`);
-
+			this.updateStats();
 		} catch (error) {
 			this.error(error.message);
 		}
@@ -203,7 +208,6 @@ class ANPRApp extends Homey.App {
 					if (!image || !image.getStream) return false;
 					// if (typeof image === 'undefined' || image == null) return false;
 					const imageStream = await image.getStream();
-
 					// save the image to userdata
 					// this.log('saving ', imageStream.contentType);
 					// const targetFile = fs.createWriteStream('./userdata/incoming.img');
@@ -300,7 +304,7 @@ class ANPRApp extends Homey.App {
 			// start polling statistics every minute
 			this.interval.stats = setInterval(() => {
 				this.updateStats();
-			}, 1000 * 60 * 1);
+			}, 1000 * 60 * 0.1);
 
 		} catch (error) {
 			this.error(error);

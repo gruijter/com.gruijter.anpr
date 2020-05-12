@@ -55,25 +55,9 @@ class ANPR {
 		const config = {
 			rules: {				// Describing our rules by rule name
 				common: {			// Common rule. Will be used if you won't provide rule argument
-					rate: 10,		// Allow to send 10 messages
+					rate: 3,		// Allow to send 10 messages
 					limit: 1,		// per 1 second
 					priority: 1,	// Rule priority. The lower priority is, the higher chance that this rule will execute faster
-				},
-				0: {				// key index 0
-					rate: 3,		// Allow to send 1 messages
-					limit: 1,		// per 1 second
-				},
-				1: {				// key index 1
-					rate: 3,		// Allow to send 1 messages
-					limit: 1,		// per 1 second
-				},
-				2: {				// key index 2
-					rate: 3,		// Allow to send 1 messages
-					limit: 1,		// per 1 second
-				},
-				3: {				// key index 3
-					rate: 3,		// Allow to send 1 messages
-					limit: 1,		// per 1 second
 				},
 			},
 			overall: {				// Overall queue rates and limits
@@ -86,8 +70,8 @@ class ANPR {
 		this.queue = new Queue(config);
 	}
 
-	queueMessage(path, msg, apiKey, rule) {
-		const key = 'homey';
+	queueMessage(path, msg, apiKey) {
+		const key = Date.now(); // 'homey';
 		const requestHandler = (retry) => this._makeRequest(path, msg, apiKey)
 			.then((response) => response)
 			.catch((error) => {
@@ -96,7 +80,7 @@ class ANPR {
 				}
 				throw error;
 			});
-		return this.queue.request(requestHandler, key, rule);
+		return this.queue.request(requestHandler, key);
 	}
 
 	// returns an array of detected plates with attributes
@@ -112,7 +96,8 @@ class ANPR {
 				timestamp:	new Date().toISOString(),	// ISO 8601 timestamp. For example, 2019-08-19T13:11:25. The timestamp has to be in UTC.
 			};
 			Object.assign(postData, opts);
-			const result = await this.queueMessage(detectLPlateEP, postData, apiKey, randomIndex);
+			const result = await this.queueMessage(detectLPlateEP, postData, apiKey);
+			// const result = await this._makeRequest(detectLPlateEP, postData, apiKey);
 			return Promise.resolve(result);
 		} catch (error) {
 			return Promise.reject(error);
@@ -120,9 +105,10 @@ class ANPR {
 	}
 
 	// returns the statistics of the used API key
-	getStatistics(apiKey) {
+	async getStatistics(apiKey) {
 		try {
-			return this.queueMessage(statisticsEP, '', apiKey);
+			const stat = await this.queueMessage(statisticsEP, '', apiKey);
+			return Promise.resolve(stat);
 		} catch (error) {
 			return Promise.reject(error);
 		}
