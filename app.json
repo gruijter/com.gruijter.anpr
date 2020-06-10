@@ -1,13 +1,13 @@
 {
   "id": "com.gruijter.anpr",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "compatibility": ">=3.0.0",
   "sdk": 2,
   "name": {
-    "en": "Licence Plate Recognition"
+    "en": "License Plate Recognition"
   },
   "description": {
-    "en": "Licence plate recognition for Homey"
+    "en": "License plate recognition for Homey"
   },
   "category": [
     "localization",
@@ -18,7 +18,7 @@
     "en": [
       "LPR",
       "ANPR",
-      "licence",
+      "license",
       "plate",
       "recognition",
       "video",
@@ -84,7 +84,7 @@
             "name": "plate",
             "type": "string",
             "title": {
-              "en": "Licence plate"
+              "en": "license plate"
             },
             "example": "nsn458"
           },
@@ -147,7 +147,7 @@
       {
         "id": "search_plates",
         "title": {
-          "en": "Search License Plates"
+          "en": "Search license plates"
         },
         "droptoken": "image",
         "args": [

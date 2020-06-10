@@ -76,19 +76,19 @@ function checkKeys(set) {
 async function showInfo3() {
 	try {
 		const key1 = document.getElementById('apiKey1');
-		const key2 = document.getElementById('apiKey2');
-		const key3 = document.getElementById('apiKey3');
-		const key4 = document.getElementById('apiKey4');
+		// const key2 = document.getElementById('apiKey2');
+		// const key3 = document.getElementById('apiKey3');
+		// const key4 = document.getElementById('apiKey4');
 		key1.type = 'password';
-		key2.type = 'password';
-		key3.type = 'password';
-		key4.type = 'password';
+		// key2.type = 'password';
+		// key3.type = 'password';
+		// key4.type = 'password';
 		Homey.get('settingsKey', (err, set) => {
 			if (err || !set || !set.apiKeys) return;
 			$('#apiKey1').val(set.apiKeys[0]);
-			$('#apiKey2').val(set.apiKeys[1]);
-			$('#apiKey3').val(set.apiKeys[2]);
-			$('#apiKey4').val(set.apiKeys[3]);
+			// $('#apiKey2').val(set.apiKeys[1]);
+			// $('#apiKey3').val(set.apiKeys[2]);
+			// $('#apiKey4').val(set.apiKeys[3]);
 		});
 		Homey.get('settingsMatch', (err, set) => {
 			if (err || !set || !set.regions) return;
@@ -102,30 +102,30 @@ async function showInfo3() {
 
 function togglePasswordView() {
 	const key1 = document.getElementById('apiKey1');
-	const key2 = document.getElementById('apiKey2');
-	const key3 = document.getElementById('apiKey3');
-	const key4 = document.getElementById('apiKey4');
+	// const key2 = document.getElementById('apiKey2');
+	// const key3 = document.getElementById('apiKey3');
+	// const key4 = document.getElementById('apiKey4');
 	if (key1.type === 'password') {
 		key1.type = 'text';
-		key2.type = 'text';
-		key3.type = 'text';
-		key4.type = 'text';
+		// key2.type = 'text';
+		// key3.type = 'text';
+		// key4.type = 'text';
 	} else {
 		key1.type = 'password';
-		key2.type = 'password';
-		key3.type = 'password';
-		key4.type = 'password';
+		// key2.type = 'password';
+		// key3.type = 'password';
+		// key4.type = 'password';
 	}
 }
 
 async function saveSettingsKey() {
 	try {
-		const apiKeys = [$('#apiKey1').val(), $('#apiKey2').val(), $('#apiKey3').val(), $('#apiKey4').val()]
+		const apiKeys = [$('#apiKey1').val()] // , $('#apiKey2').val(), $('#apiKey3').val(), $('#apiKey4').val()]
 			.filter((key) => key.length > 0);
-		if (!apiKeys[0]) return Homey.alert('At least 1 API Key must be entered!', 'error');
+		if (!apiKeys[0]) return Homey.alert('API Key must be entered!', 'error');
 		await checkKeys(apiKeys);
 		await Homey.set('settingsKey', { apiKeys });
-		return Homey.alert('API Keys are saved!', 'info');
+		return Homey.alert('API Key is saved!', 'info');
 	} catch (error) {
 		return Homey.alert(error.message, 'error');
 	}

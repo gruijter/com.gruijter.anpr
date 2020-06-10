@@ -94,8 +94,8 @@ class ANPRApp extends Homey.App {
 			}
 
 			// register flows and tokens, and start polling stuff
-			this.registerFlowCards();
-			this.registerFlowTokens();
+			await this.registerFlowCards();
+			await this.registerFlowTokens();
 			// this.startPolling();
 
 			// get stats
@@ -229,8 +229,9 @@ class ANPRApp extends Homey.App {
 					return true;
 				});
 
+			return Promise.resolve(this.flows);
 		} catch (error) {
-			this.error(error);
+			return Promise.resolve(error);
 		}
 
 	}
@@ -287,8 +288,9 @@ class ANPRApp extends Homey.App {
 			});
 			this.tokens.key4UsageToken.register();
 
+			return Promise.resolve(this.tokens);
 		} catch (error) {
-			this.error(error);
+			return Promise.resolve(error);
 		}
 
 	}

@@ -19,9 +19,9 @@
 		"tab3": {
 			"title": "Settings",
 			"instructionsLegendKey": "API Key Instructions",
-			"instructionsKey": "Enter the API Key that you obtained from the platerecognizer website. It is possible to add up to four keys that will be used randomly.",
+			"instructionsKey": "Enter the API Key that you obtained from the platerecognizer website.",
 			"api_key": "API Key &#128065;",
-			"saveSettingsKey": "Save API Key(s)",
+			"saveSettingsKey": "Save API Key",
 			"instructionsLegendMatch": "Plate Recognition",
 			"instructionsMatch": "A higher confidence threshold will reduce incorrect plate recognitions. Optionally fill in the matching country codes separated by a comma. Leave empty for automatic region search. List of country codes: <a href='https://docs.platerecognizer.com/#countries'><u>docs.platerecognizer.com/#countries</u></a>",
 			"threshold": "Confidence Threshold",

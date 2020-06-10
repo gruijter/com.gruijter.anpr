@@ -55,7 +55,7 @@ class ANPR {
 		const config = {
 			rules: {				// Describing our rules by rule name
 				common: {			// Common rule. Will be used if you won't provide rule argument
-					rate: 3,		// Allow to send 10 messages
+					rate: 2,		// Allow to send 10 messages
 					limit: 1,		// per 1 second
 					priority: 1,	// Rule priority. The lower priority is, the higher chance that this rule will execute faster
 				},
@@ -93,7 +93,7 @@ class ANPR {
 				// upload:	(required) The file to be uploaded. The parameter can either be the file bytes (using Content-Type multipart/form-data) OR a base64 encoded image.
 				// regions: ['nl', 'be', 'de'], // Match the license plate pattern of a specific region or regions. This parameter can be used multiple times to specify more than one region.
 				// camera_id:	Unique camera identifier.
-				timestamp:	new Date().toISOString(),	// ISO 8601 timestamp. For example, 2019-08-19T13:11:25. The timestamp has to be in UTC.
+				// timestamp:	new Date().toISOString(),	// ISO 8601 timestamp. For example, 2019-08-19T13:11:25. The timestamp has to be in UTC.
 			};
 			Object.assign(postData, opts);
 			const result = await this.queueMessage(detectLPlateEP, postData, apiKey);
@@ -174,7 +174,7 @@ class ANPR {
 					return resolve(res); // resolve the request
 				});
 			});
-			req.once('error', (e) => {
+			req.on('error', (e) => {
 				req.abort();
 				return reject(e);
 			});

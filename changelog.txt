@@ -1,3 +1,4 @@
+v1.1.4  10.06.2020 Removed multiple API key support.
 v1.1.3  12.05.2020 Memory leak fix. Faster statistics update.
 v1.1.1  10.05.2020 Added multiple API key support. Added key validity check on save. Added API statistics. Added manual region selection. Bug fixes.
 v1.0.1  05.05.2020 Added toggle API Secret view in app settings. Fix API throttle issue. Fix threshold setting.

@@ -1,13 +1,13 @@
 {
   "name": "com.gruijter.anpr",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "main": "app.js",
   "dependencies": {
     "fixture-stdout": "^0.2.1",
     "smart-request-balancer": "^2.1.1"
   },
   "devDependencies": {},
-  "description": "Use snapshots from a camera connected to Homey, and do Automatic Number Plate Recognition. For every licence plate the app detects, a flow will be triggered.",
+  "description": "Use snapshots from a camera connected to Homey, and do Automatic Number Plate Recognition. For every license plate the app detects, a flow will be triggered.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,7 +19,7 @@
     "homey",
     "ANPR",
     "LPR",
-    "licence",
+    "license",
     "plate",
     "recognition"
   ],

@@ -1,6 +1,6 @@
 # ANPR
-## Licence plate recognition for Homey ##
-Use snapshots from a camera connected to Homey, and let Platerecognizer do AI based licence plate recognition. For every plate the app detects, a flow will be triggered. The app will also provide vehicle type and region.
+## License plate recognition for Homey ##
+Use snapshots from a camera connected to Homey, and let Platerecognizer do AI based license plate recognition. For every plate the app detects, a flow will be triggered. The app will also provide vehicle type and region.
 
 <img src="https://aws1.discourse-cdn.com/business4/uploads/athom/original/3X/6/f/6f0957c6d850fb69e8c70c1838c33abe8027ca8a.jpeg" alt="ANPR" width="250">
 
@@ -11,7 +11,7 @@ Use snapshots from a camera connected to Homey, and let Platerecognizer do AI ba
 * Fun
 
 ## Privacy ##
-The Homey app uses a cloud based licence plate recognition service called Platerecognizer. Using the Platerecognizer service has privacy implications. Use at own risk. Read and understand your local privacy legislation, and the terms of use from Platerecognizer.
+The Homey app uses a cloud based license plate recognition service called Platerecognizer. Using the Platerecognizer service has privacy implications. Use at own risk. Read and understand your local privacy legislation, and the terms of use from Platerecognizer.
 
 ## Performance ##
 The free Platerecognizer service allows you to upload 1 or 2 images per second. The plate detection usually is ready within 1 to 3 seconds from uploading an image (via an action flowcard).
