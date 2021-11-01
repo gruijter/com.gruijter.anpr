@@ -59,14 +59,12 @@ function deleteLogs() {
 // tab 3 stuff here
 function checkKeys(set) {
 	try {
-		const ready = set.map((key) => {
-			return new Promise((resolve, reject) => {
-				Homey.api('POST', 'checkkey/', { key }, (err, result) => {
-					if (err) return reject(err);
-					return resolve(result);
-				});
+		const ready = set.map((key) => new Promise((resolve, reject) => {
+			Homey.api('POST', 'checkkey/', { key }, (err, result) => {
+				if (err) return reject(err);
+				return resolve(result);
 			});
-		});
+		}));
 		return Promise.all(ready);
 	} catch (error) {
 		return Promise.reject(error);

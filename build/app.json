@@ -1,19 +1,16 @@
 {
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.gruijter.anpr",
-  "version": "1.1.4",
-  "compatibility": ">=3.0.0",
-  "sdk": 2,
+  "version": "2.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
   "name": {
     "en": "License Plate Recognition"
   },
   "description": {
     "en": "License plate recognition for Homey"
   },
-  "category": [
-    "localization",
-    "security",
-    "video"
-  ],
+  "category": "localization",
   "tags": {
     "en": [
       "LPR",
@@ -64,6 +61,24 @@
   "source": "https://github.com/gruijter/com.gruijter.anpr",
   "homepage": "https://github.com/gruijter/com.gruijter.anpr/blob/master/README.md",
   "support": "https://community.athom.com/t/29338",
+  "brandColor": "#155869",
+  "platforms": [
+    "local"
+  ],
+  "api": {
+    "getLogs": {
+      "method": "get",
+      "path": "/getlogs"
+    },
+    "deleteLogs": {
+      "method": "get",
+      "path": "/deletelogs"
+    },
+    "checkkey": {
+      "method": "post",
+      "path": "/checkkey"
+    }
+  },
   "flow": {
     "triggers": [
       {

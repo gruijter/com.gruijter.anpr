@@ -1,0 +1,16 @@
+{
+  "id": "search_plates",
+  "title": {
+    "en": "Search license plates"
+  },
+  "droptoken": "image",
+  "args": [
+    {
+      "type": "text",
+      "name": "origin",
+      "placeholder": {
+        "en": "Origin Label (e.g. Cam1)"
+      }
+    }
+  ]
+}

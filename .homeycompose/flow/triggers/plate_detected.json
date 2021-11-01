@@ -1,0 +1,76 @@
+{
+  "id": "plate_detected",
+  "title": {
+    "en": "Plate detected"
+  },
+  "tokens": [
+    {
+      "name": "origin",
+      "type": "string",
+      "title": {
+        "en": "origin"
+      },
+      "example": "Ring camera"
+    },
+    {
+      "name": "plate",
+      "type": "string",
+      "title": {
+        "en": "license plate"
+      },
+      "example": "nsn458"
+    },
+    {
+      "name": "confidence",
+      "type": "number",
+      "title": {
+        "en": "confidence"
+      },
+      "example": 90.4
+    },
+    {
+      "name": "quality",
+      "type": "number",
+      "title": {
+        "en": "quality"
+      },
+      "example": 72.8
+    },
+    {
+      "name": "region",
+      "type": "string",
+      "title": {
+        "en": "region"
+      },
+      "example": {
+        "en": "de"
+      }
+    },
+    {
+      "name": "region_conf",
+      "type": "number",
+      "title": {
+        "en": "region confidence"
+      },
+      "example": 88.2
+    },
+    {
+      "name": "vehicle",
+      "type": "string",
+      "title": {
+        "en": "vehicle"
+      },
+      "example": {
+        "en": "Car"
+      }
+    },
+    {
+      "name": "vehicle_conf",
+      "type": "number",
+      "title": {
+        "en": "vehicle confidence"
+      },
+      "example": 35.8
+    }
+  ]
+}

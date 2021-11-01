@@ -16,5 +16,8 @@
   },
   "1.1.4": {
     "en": "Removed multiple API key support."
+  },
+  "2.0.0": {
+    "en": "Migration to SDK3. Fix HTTPS timeout. Improved logger. Removed % used tokens 2 through 4."
   }
 }

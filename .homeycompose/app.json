@@ -1,0 +1,81 @@
+{
+  "id": "com.gruijter.anpr",
+  "version": "2.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "License Plate Recognition"
+  },
+  "description": {
+    "en": "License plate recognition for Homey"
+  },
+  "category": "localization",
+  "tags": {
+    "en": [
+      "LPR",
+      "ANPR",
+      "license",
+      "plate",
+      "recognition",
+      "video",
+      "analytics",
+      "biometrics"
+    ]
+  },
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.jpg",
+    "small": "/assets/images/small.jpg"
+  },
+  "author": {
+    "name": "Robin Gruijter",
+    "email": "gruijter@hotmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Robin de Gruijter",
+        "email": "gruijter@hotmail.com"
+      }
+    ],
+    "translators": [
+      {
+        "name": "🇬🇧 Robin"
+      }
+    ]
+  },
+  "copyright": "Robin de Gruijter (gruijter@hotmail.com)",
+  "license": " GPL-3.0-or-later",
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "gruijter"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/gruijter/com.gruijter.anpr/issues"
+  },
+  "homeyCommunityTopicId": 29338,
+  "source": "https://github.com/gruijter/com.gruijter.anpr",
+  "homepage": "https://github.com/gruijter/com.gruijter.anpr/blob/master/README.md",
+  "support": "https://community.athom.com/t/29338",
+  "brandColor": "#155869",
+  "platforms": [
+    "local"
+  ],
+  "api": {
+    "getLogs": {
+      "method": "get",
+      "path": "/getlogs"
+    },
+    "deleteLogs": {
+      "method": "get",
+      "path": "/deletelogs"
+    },
+    "checkkey": {
+      "method": "post",
+      "path": "/checkkey"
+    }
+  }
+}
