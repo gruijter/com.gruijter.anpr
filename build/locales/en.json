@@ -1,0 +1,32 @@
+{
+    "settings": {
+		"tab1": {
+            "title": "Instructions",
+            "warningTitle": "WARNING",
+            "warningInstructions": "Using the platerecognizer service has privacy implications. Use at own risk. Read and understand your local privacy legislation, and the terms of use from platerecognizer.",
+			"registerTitle": "Register API Key",
+			"registerInstructions": "For a free API key, go to <a href='https://app.platerecognizer.com/accounts/signup'><u>app.platerecognizer.com/accounts/signup</u></a>",
+			"useTitle": "How to use in a flow",
+			"useInstructions": "Use a flow to send a camera image to the app. The app will try to find license plates in this image, and will trigger a flowcard for each plate it finds."
+		},
+		"tab2": {
+			"title": "Logs",
+			"logs": "Logs",
+			"deletelogs": "Delete logs",
+			"deleteWarning": "Delete all logs?",
+			"deleted": "Logs deleted!"
+		},
+		"tab3": {
+			"title": "Settings",
+			"instructionsLegendKey": "API Key Instructions",
+			"instructionsKey": "Enter the API Key that you obtained from the platerecognizer website.",
+			"api_key": "API Key &#128065;",
+			"saveSettingsKey": "Save API Key",
+			"instructionsLegendMatch": "Plate Recognition",
+			"instructionsMatch": "A higher confidence threshold will reduce incorrect plate recognitions. Optionally fill in the matching country codes separated by a comma. Leave empty for automatic region search. List of country codes: <a href='https://docs.platerecognizer.com/#countries'><u>docs.platerecognizer.com/#countries</u></a>",
+			"threshold": "Confidence Threshold",
+			"region": "Countries to match",
+			"saveSettingsMatch": "Save Recognition Settings"
+		}
+	}
+}

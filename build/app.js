@@ -159,6 +159,7 @@ class ANPRApp extends Homey.App {
 				timestamp:	new Date().toISOString(),	// ISO 8601 timestamp. For example, 2019-08-19T13:11:25. The timestamp has to be in UTC.
 			};
 			const { results, camera_id: cameraID } = await this.ANPR.detectPlates(options);
+			console.dir(results, { depth: null });
 			const searchResult = results
 				.filter((plate) => plate.score > this.matchThreshold)
 				.map((plate) => {
@@ -179,6 +180,7 @@ class ANPRApp extends Homey.App {
 					return tokens;
 				});
 			await Promise.all(searchResult);
+			console.log(searchResult);
 			if (searchResult.length === 0) this.log(`no plates found in image ${origin}`);
 			this.updateStats();
 		} catch (error) {
